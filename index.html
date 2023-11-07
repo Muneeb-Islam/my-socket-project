@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Socket.io Client</title>
+  </head>
+  <body>
+    <input type="text" id="message" placeholder="Type a message" />
+    <button id="send">Send</button>
+    <ul id="messages"></ul>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      const socket = io();
+
+      document.querySelector("#send").addEventListener("click", () => {
+        const message = document.querySelector("#message").value;
+        socket.emit("message", message);
+      });
+
+      socket.on("message", (data) => {
+        const messages = document.querySelector("#messages");
+        messages.innerHTML += `<li>${data}</li>`;
+      });
+    </script>
+  </body>
+</html>
